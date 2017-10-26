@@ -4,24 +4,35 @@ using UnityEngine;
 
 public class Jetski : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey(KeyCode.LeftArrow)) {
-			
-			transform.Rotate (0, 0, -.01f);
-		}
-		if (Input.GetKey(KeyCode.RightArrow)) {
-			transform.Rotate (0, 0, .01f);
-		}
+    public float speed;
+    // Use this for initialization
 
-		if (Input.GetKey (KeyCode.UpArrow)) {
-			//model is rotated 90 degrees, otherwise we'd use transform.forward
-			transform.position += transform.up * .1f;
-		}
+	void Start () {
+        speed = 0f;
 	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (speed <= 0)
+        {
+            speed = 0;
+        }
+
+        //jetski model is rotated, otherwise we would use transform.forward
+        transform.position += transform.up * .1f * speed;
+
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+
+            transform.Rotate(0, 0, -.01f);
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Rotate(0, 0, .01f);
+        }
+
+    }
+
 }
