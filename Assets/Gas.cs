@@ -11,6 +11,7 @@ namespace Valve.VR.InteractionSystem
         private bool usingGasThrottle;
         private bool pressingGas;
         private bool turning;
+        private float axis;
 
         // Use this for initialization
         void Start()
@@ -32,13 +33,17 @@ namespace Valve.VR.InteractionSystem
                     {
                         if (hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger))
                         {
+                            Debug.Log("Pressing Gas");
                             pressingGas = true;
+                            axis = Player.instance.transform.position.x;
                         }
+
                         if (hand.controller.GetPressUp(Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger))
                         {
                             pressingGas = false;
 
                         }
+                        /*
                         if (hand.controller.GetTouchDown(Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad))
                         {
                             turning = true;
@@ -47,23 +52,29 @@ namespace Valve.VR.InteractionSystem
                         {
                             turning = false;
                         }
+                        */
                     }
                 }
             }
 
             if (pressingGas)
             {
+                Debug.Log("Pressing Gas");
+
                 transform.parent.Rotate(0, 0, .1f * drift);
 
                 if (GetComponentInParent<Jetski>().speed <= 5)
                 {
-                    GetComponentInParent<Jetski>().speed += .01f;
+  //                  Debug.Log("Speed: " + GetComponentInParent<Jetski>().speed);
+                    GetComponentInParent<Jetski>().speed += .1f;
                 }
 
             }
             else
             {
-                GetComponentInParent<Jetski>().speed -= .01f;
+                GetComponentInParent<Jetski>().speed -= .1f;
+                Debug.Log("Decelerating");
+
             }
 
         }

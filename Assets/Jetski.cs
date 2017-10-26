@@ -21,7 +21,7 @@ public class Jetski : MonoBehaviour {
 
         //jetski model is rotated, otherwise we would use transform.forward
         transform.position += transform.up * .1f * speed;
-
+        Debug.Log("Speed: " + speed);
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
